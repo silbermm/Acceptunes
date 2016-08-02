@@ -2,7 +2,7 @@ defmodule Acceptunes.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", Acceptunes.RoomChannel
+  channel "room:*", Acceptunes.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
