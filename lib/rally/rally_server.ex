@@ -31,7 +31,7 @@ defmodule RallyServer do
   end
 
   def handle_call({:check}, _from, state) do
-    IO.puts "Current rally count is #{state.current_count}"
+    #IO.puts "Current rally count is #{state.current_count}"
     rally_result = Acceptunes.DailyRallyItems.get(@rally_project_id)
     {
       :reply,

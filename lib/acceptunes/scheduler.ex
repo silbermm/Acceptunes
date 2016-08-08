@@ -21,7 +21,7 @@ defmodule Acceptunes.Scheduler do
     # Check for new items that have been accepted and play sound
     new? = RallyServer.check_for_new
     if (new? > 0) do
-      IO.puts "found a new item!"
+      #IO.puts "found a new item!"
       Acceptunes.Asound.play_sound("/home/silbermm/Projects/acceptunes/test/support/r2d2.mp3")
     end
 

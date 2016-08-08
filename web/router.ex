@@ -19,6 +19,12 @@ defmodule Acceptunes.Router do
     get "/", PageController, :index
   end
 
+  scope "/api", Acceptunes do
+    pipe_through :api 
+
+    post "/rally", RallyController, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", Acceptunes do
   #   pipe_through :api
