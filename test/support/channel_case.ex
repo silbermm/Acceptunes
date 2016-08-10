@@ -20,11 +20,6 @@ defmodule Acceptunes.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias Acceptunes.Repo
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query, only: [from: 1, from: 2]
-
 
       # The default endpoint for testing
       @endpoint Acceptunes.Endpoint
@@ -33,7 +28,7 @@ defmodule Acceptunes.ChannelCase do
 
   setup tags do
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Acceptunes.Repo, [])
+      #Ecto.Adapters.SQL.restart_test_transaction(Acceptunes.Repo, [])
     end
 
     :ok

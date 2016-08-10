@@ -15,6 +15,14 @@ config :acceptunes, Acceptunes.Endpoint,
 
 config :acceptunes, :rally_api, Rally
 
+config :acceptunes,
+  rally_api_key: System.get_env("RALLY_API_KEY"),
+  rally_workspace_id: System.get_env("RALLY_WORKSPACE_ID"),
+  rally_project_id: 27593501023,
+  current_timezone: "America/New_York",
+  asound_location: "/usr/bin/play",
+  asound_options: []
+
 # Watch static and templates for browser reloading.
 config :acceptunes, Acceptunes.Endpoint,
   live_reload: [
@@ -33,12 +41,3 @@ config :logger, :console, format: "[$level] $message\n"
 # Do not configure such in production as keeping
 # and calculating stacktraces is usually expensive.
 config :phoenix, :stacktrace_depth, 20
-
-# Configure your database
-config :acceptunes, Acceptunes.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "acceptunes_dev",
-  hostname: "localhost",
-  pool_size: 10

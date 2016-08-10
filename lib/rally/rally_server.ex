@@ -11,10 +11,14 @@ defmodule RallyServer do
     GenServer.call(__MODULE__, {:current_count})
   end
 
+  def is_loaded do
+    GenServer.call(__MODULE__, {:is_loaded})
+  end
+
   def clear do
     GenServer.cast(__MODULE__, {:clear_count})
   end
-  
+
   def check_for_new do
     GenServer.call(__MODULE__, {:check})
   end
@@ -23,20 +27,34 @@ defmodule RallyServer do
   def init(:ok) do
     # get intial daily accepted items
     rally_result = Acceptunes.DailyRallyItems.get(@rally_project_id)
-    {:ok, %{:current_count => rally_result.total_results }}
+    {:ok, %{:current_count => rally_result.total_results, :loaded => true }}
+  end
+
+  def handle_call({:is_loaded}, _from, state) do
+    {:reply, Map.get(state,:loaded, false) , state}
   end
 
   def handle_call({:current_count}, _from, state) do
     {:reply, state.current_count , state}
   end
 
-  def handle_call({:check}, _from, state) do
-    #IO.puts "Current rally count is #{state.current_count}"
+  def handle_call({:check}, _from, %{:loaded => true} = state) do
+    IO.puts "Current rally count is #{state.current_count}"
     rally_result = Acceptunes.DailyRallyItems.get(@rally_project_id)
     {
       :reply,
       rally_result.total_results - state.current_count,
       %{state | :current_count => rally_result.total_results}
+    }
+  end
+
+  def handle_call({:check}, _from, state) do
+    IO.puts "state is not loaded yet... "
+    rally_result = Acceptunes.DailyRallyItems.get(@rally_project_id)
+    {
+      :reply,
+      0,
+      %{:current_count => rally_result.total_results, :loaded => true}
     }
   end
 

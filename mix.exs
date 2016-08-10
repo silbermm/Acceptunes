@@ -9,8 +9,10 @@ defmodule Acceptunes.Mixfile do
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     description: "Play a tune when a Raly item is accepted",
      aliases: aliases,
-     deps: deps]
+     deps: deps,
+     package: package]
   end
 
   # Configuration for the OTP application.
@@ -18,8 +20,23 @@ defmodule Acceptunes.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Acceptunes, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :httpoison, :timex]]
+     applications: [:phoenix, :phoenix_html,
+                    :cowboy, :logger, :gettext,
+                    :httpoison, :timex, :edeliver]]
+  end
+
+  def package do
+    [
+      external_dependencies: [],
+      license_file: "LICENSE",
+      files: [ "lib", "mix.exs", "README*", "LICENSE"],
+      maintainers: ["Matt Silbernagel <silbermm@gmail.com>"],
+      licenses: ["MIT"],
+      vendor: "Matt Silbernagel",
+      links:  %{
+        "GitHub" => "https://github.com/silbermm/acceptunes"
+      }
+    ]
   end
 
   # Specifies which paths to compile per environment.
@@ -31,14 +48,14 @@ defmodule Acceptunes.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [{:phoenix, "~> 1.1.3"},
-     {:phoenix_ecto, "~> 2.0"},
-     {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.9.0"},
-     {:timex, "~> 3.0"}
+     {:timex, "~> 3.0"},
+     {:exrm, "~> 1.0.8"},
+     {:edeliver, "~> 1.3.0"}
    ]
   end
 

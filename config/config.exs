@@ -1,8 +1,3 @@
-# This file is responsible for configuring your application
-# and its dependencies with the aid of the Mix.Config module.
-#
-# This configuration file is loaded before any dependency and
-# is restricted to this project.
 use Mix.Config
 
 # Configures the endpoint
@@ -24,14 +19,9 @@ config :acceptunes,
   rally_workspace_id: System.get_env("RALLY_WORKSPACE_ID"),
   rally_project_id: 27593501023,
   current_timezone: "America/New_York",
-  asound_location: "/usr/bin/alsaplayer",
-  asound_options: [ "-i", "text" ]
-
-config :quantum, cron: [
-  # Every minute
-  "* * * * *": {Acceptunes.Scheduler, :run}
-]
-
+  asound_location: "/usr/bin/play",
+  asound_options: [],
+  sound_directory: "/opt/acceptunes/sounds"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -9,8 +9,6 @@ defmodule Acceptunes do
     children = [
       # Start the endpoint when the application starts
       supervisor(Acceptunes.Endpoint, []),
-      # Start the Ecto repository
-      supervisor(Acceptunes.Repo, []),
       # Here you could define other workers and supervisors as children
       worker(RallyServer, [[name: RallyServer]]),
       worker(Acceptunes.Scheduler, [[name: Acceptunes.Scheduler]])
