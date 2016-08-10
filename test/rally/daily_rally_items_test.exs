@@ -4,9 +4,8 @@ defmodule DailyRallyItemsTest do
   alias Acceptunes.DailyRallyItems
 
   test "should call the rally endpoint" do
-    datetime = Timex.now 
-                |> Timex.beginning_of_day
-                |> Timex.format!("{ISO:Extended:Z}")
+    { date, time } = :os.timestamp |> :calendar.now_to_datetime
+    formated = "#{elem(date,0)}-#{elem(date,1)}-#{elem(date,2)} 00:00:00Z"
     result = DailyRallyItems.get(12345)
     assert result.status_code == 200
     assert result.total_results == 2

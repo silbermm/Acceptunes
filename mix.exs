@@ -22,7 +22,7 @@ defmodule Acceptunes.Mixfile do
     [mod: {Acceptunes, []},
      applications: [:phoenix, :phoenix_html,
                     :cowboy, :logger, :gettext,
-                    :httpoison, :timex, :edeliver]]
+                    :httpoison, :edeliver]]
   end
 
   def package do
@@ -53,7 +53,6 @@ defmodule Acceptunes.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.9.0"},
-     {:timex, "~> 3.0"},
      {:exrm, "~> 1.0.8"},
      {:edeliver, "~> 1.3.0"}
    ]

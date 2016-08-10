@@ -4,9 +4,11 @@ defmodule Acceptunes.DailyRallyItems do
   @timezone Application.get_env(:acceptunes, :current_timezone) 
 
   def today do
-    datetime = Timex.now(@timezone) 
-                |> Timex.beginning_of_day
-                |> Timex.format!("{ISO:Extended:Z}")
+    { date, time } = :os.timestamp |> :calendar.now_to_local_time
+    formated = "#{elem(date,0)}-#{elem(date,1)}-#{elem(date,2)} 00:00:00Z"
+    #datetime = Timex.now(@timezone) 
+                #|> Timex.beginning_of_day
+    #            |> Timex.format!("{ISO:Extended:Z}")
   end
 
   def format(response) do
