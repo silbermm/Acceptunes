@@ -27,6 +27,7 @@ defmodule RallyServer do
   def init(:ok) do
     # get intial daily accepted items
     rally_result = Acceptunes.DailyRallyItems.get(@rally_project_id)
+    Acceptunes.RoomChannel.update_rally_count(rally_result.total_results)
     {:ok, %{:current_count => rally_result.total_results, :loaded => true }}
   end
 
@@ -39,8 +40,8 @@ defmodule RallyServer do
   end
 
   def handle_call({:check}, _from, %{:loaded => true} = state) do
-    IO.puts "Current rally count is #{state.current_count}"
     rally_result = Acceptunes.DailyRallyItems.get(@rally_project_id)
+    Acceptunes.RoomChannel.update_rally_count(rally_result.total_results)
     {
       :reply,
       rally_result.total_results - state.current_count,
@@ -49,8 +50,8 @@ defmodule RallyServer do
   end
 
   def handle_call({:check}, _from, state) do
-    IO.puts "state is not loaded yet... "
     rally_result = Acceptunes.DailyRallyItems.get(@rally_project_id)
+    Acceptunes.RoomChannel.update_rally_count(rally_result.total_results)
     {
       :reply,
       0,

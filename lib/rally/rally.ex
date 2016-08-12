@@ -12,7 +12,7 @@ defmodule Rally do
   end
 
   def query(:get, projectId, accepted_date ) do
-    get("find=%7B%22__At%22:%22current%22,%22_ProjectHierarchy%22:#{projectId},%20%22ScheduleState%22:%22Accepted%22,%22AcceptedDate%22:%20%7B%20%22$gte%22:%20%22#{accepted_date}%22%7D%20%7D&fields=%5B%22ObjectID%22%5D&start=0&pagesize=100&removeUnauthorizedSnapshots=true", headers)
+    get("find=%7B%22__At%22:%22current%22,%22Project%22:#{projectId},%20%22ScheduleState%22:%22Accepted%22,%22AcceptedDate%22:%20%7B%20%22$gte%22:%20%22#{accepted_date}%22%7D%20%7D&fields=%5B%22ObjectID%22%5D&start=0&pagesize=100&removeUnauthorizedSnapshots=true", headers)
   end
 
   def process_url("/" <> path), do: process_url(path)

@@ -5,7 +5,7 @@ defmodule AsoundTest do
 
   @tag external: true
   test "sound plays successfully" do
-    assert Acceptunes.Asound.play_sound("#{@sound_dir}/yeah.mp3") == true
+    assert Acceptunes.Asound.play_sound("yeah.mp3") == true
   end
 
   @tag external: true

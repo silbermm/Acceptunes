@@ -5,7 +5,9 @@ defmodule Acceptunes.DailyRallyItems do
 
   def today do
     { date, time } = :os.timestamp |> :calendar.now_to_local_time
-    formated = "#{elem(date,0)}-#{elem(date,1)}-#{elem(date,2)} 00:00:00Z"
+    month = format_month_day(elem(date,1))
+    day = format_month_day(elem(date,2))
+    formated = "#{elem(date,0)}-#{month}-#{day}T00:00:00Z"
     #datetime = Timex.now(@timezone) 
                 #|> Timex.beginning_of_day
     #            |> Timex.format!("{ISO:Extended:Z}")
@@ -28,6 +30,14 @@ defmodule Acceptunes.DailyRallyItems do
 
   def get(projectId) do
     @rally_api.query(:get, projectId, today) |> format
+  end
+
+  defp format_month_day(num) do
+    cond do
+      num < 10 -> "0#{num}"
+      true -> "#{num}"
+    end
+
   end
 
 end
