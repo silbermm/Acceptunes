@@ -7,7 +7,7 @@ defmodule Acceptunes.DailyRallyItems do
     { date, time } = :os.timestamp |> :calendar.now_to_local_time
     month = format_month_day(elem(date,1))
     day = format_month_day(elem(date,2))
-    formated = "#{elem(date,0)}-#{month}-#{day}T00:00:00Z"
+    formated = "#{elem(date,0)}-#{month}-#{day}T04:00:00Z"
     #datetime = Timex.now(@timezone) 
                 #|> Timex.beginning_of_day
     #            |> Timex.format!("{ISO:Extended:Z}")

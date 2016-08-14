@@ -2,6 +2,7 @@ defmodule Acceptunes.Scheduler do
   use GenServer
 
   def start_link(opts \\ []) do
+    IO.puts "starting scheduler"
     GenServer.start_link(__MODULE__, :ok, opts)
   end
 
@@ -26,6 +27,7 @@ defmodule Acceptunes.Scheduler do
   end
 
   defp run do
+    IO.puts "checking for new items"
     if RallyServer.is_loaded do
       # Check for new items that have been accepted and play sound
       new? = RallyServer.check_for_new

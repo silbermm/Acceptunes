@@ -28,6 +28,7 @@ defmodule RallyServer do
     # get intial daily accepted items
     rally_result = Acceptunes.DailyRallyItems.get(@rally_project_id)
     Acceptunes.RoomChannel.update_rally_count(rally_result.total_results)
+    Acceptunes.Scheduler.start_link([[name: Acceptunes.Scheduler]])
     {:ok, %{:current_count => rally_result.total_results, :loaded => true }}
   end
 
