@@ -42,12 +42,20 @@ defmodule RallyServer do
 
   def handle_call({:check}, _from, %{:loaded => true} = state) do
     rally_result = Acceptunes.DailyRallyItems.get(@rally_project_id)
-    Acceptunes.RoomChannel.update_rally_count(rally_result.total_results)
-    {
-      :reply,
-      rally_result.total_results - state.current_count,
-      %{state | :current_count => rally_result.total_results}
-    }
+    if (rally_result.status_code == 200) do
+      Acceptunes.RoomChannel.update_rally_count(rally_result.total_results)
+      {
+        :reply,
+        rally_result.total_results - state.current_count,
+        %{state | :current_count => rally_result.total_results}
+      }
+    else
+      {
+        :reply,
+        0,
+        state
+      }
+    end
   end
 
   def handle_call({:check}, _from, state) do

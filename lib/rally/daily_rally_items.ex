@@ -1,13 +1,14 @@
 defmodule Acceptunes.DailyRallyItems do
+  require Logger
 
   @rally_api Application.get_env(:acceptunes, :rally_api)
   @timezone Application.get_env(:acceptunes, :current_timezone) 
 
   def today do
-    { date, time } = :os.timestamp |> :calendar.now_to_local_time
+    { date, _time } = :os.timestamp |> :calendar.now_to_local_time
     month = format_month_day(elem(date,1))
     day = format_month_day(elem(date,2))
-    formated = "#{elem(date,0)}-#{month}-#{day}T04:00:00Z"
+    "#{elem(date,0)}-#{month}-#{day}T04:00:00Z"
     #datetime = Timex.now(@timezone) 
                 #|> Timex.beginning_of_day
     #            |> Timex.format!("{ISO:Extended:Z}")
@@ -24,7 +25,9 @@ defmodule Acceptunes.DailyRallyItems do
           total_results: response.body["TotalResultCount"],
           object_ids: object_ids
         }
-      {:error, err} -> %Acceptunes.RallyResult{}
+      {:error, err} -> 
+        Logger.error(err)
+        %Acceptunes.RallyResult{}
     end
   end
 
