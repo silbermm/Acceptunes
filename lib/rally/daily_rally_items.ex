@@ -16,14 +16,16 @@ defmodule Acceptunes.DailyRallyItems do
 
   def format(response) do
     case response do
-      {:ok, response} -> 
+      {:ok, %HTTPoison.Response{body: %{ "Results": nil }}} ->
+        %Acceptunes.RallyResult{}
+      {:ok, response} ->
         object_ids = Enum.map(response.body["Results"], fn(obj) ->
           obj["ObjectID"]
         end)
         %Acceptunes.RallyResult{
           status_code: response.status_code,
           total_results: response.body["TotalResultCount"],
-          object_ids: object_ids
+          #object_ids: object_ids
         }
       {:error, err} -> 
         Logger.error(err)

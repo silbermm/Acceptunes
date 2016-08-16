@@ -13,7 +13,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :acceptunes, Acceptunes.Endpoint,
   http: [port: 8080],
-  url: [host: "localhost", port: 80],
+  url: [host: "localhost", port: 8080],
   cache_static_manifest: "priv/static/manifest.json",
   server: true,
   version: Mix.Project.config[:version]

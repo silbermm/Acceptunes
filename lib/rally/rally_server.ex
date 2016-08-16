@@ -1,5 +1,6 @@
 defmodule RallyServer do
   use GenServer
+  require Logger
 
   @rally_project_id Application.get_env(:acceptunes, :rally_project_id)
 
@@ -26,6 +27,7 @@ defmodule RallyServer do
   ## Server Callbacks
   def init(:ok) do
     # get intial daily accepted items
+    Logger.info "Starting RallyServer for project #{@rally_project_id}"
     rally_result = Acceptunes.DailyRallyItems.get(@rally_project_id)
     Acceptunes.RoomChannel.update_rally_count(rally_result.total_results)
     Acceptunes.Scheduler.start_link([[name: Acceptunes.Scheduler]])
