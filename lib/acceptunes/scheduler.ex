@@ -33,7 +33,7 @@ defmodule Acceptunes.Scheduler do
       # Check for new items that have been accepted and play sound
       new? = RallyServer.check_for_new
       if (new? > 0) do
-        Acceptunes.Asound.play_sound("yeah.mp3")
+        send_congrats
       end
     end
   end
@@ -42,4 +42,21 @@ defmodule Acceptunes.Scheduler do
     Process.send_after(self(), :run, 5 * 1000) # In 30 minute
   end
 
+  def send_congrats do
+    Acceptunes.Asound.play_sound("yeah.mp3")
+    cat = Cats.get_cat
+    Slack.post("""
+      {
+      "channel": "@matt",
+      "text": "@channel: Congratulations on getting another item through Rally!\n Enjoy this cat picture as a reward!",
+      "attachments": [
+        {
+          "fallback": "Really awesome picture of a cat.",
+          "color": "good",
+          "image_url": "#{cat}"
+        }
+      ]
+      }
+    """)
+  end
 end
