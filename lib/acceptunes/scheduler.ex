@@ -47,8 +47,7 @@ defmodule Acceptunes.Scheduler do
     cat = Cats.get_cat
     Slack.post("""
       {
-      "channel": "#falcons",
-      "text": "@channel: Congratulations on getting another item through Rally!\n Enjoy this cat picture as a reward!",
+      "text": "<!channel> Congratulations on getting another item through Rally!\n Enjoy this cat picture as a reward!",
       "attachments": [
         {
           "fallback": "Really awesome picture of a cat.",

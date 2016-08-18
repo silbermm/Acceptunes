@@ -25,7 +25,7 @@ config :acceptunes,
   rally_workspace_id: System.get_env("RALLY_WORKSPACE_ID"),
   rally_project_id: System.get_env("RALLY_PROJECT_ID"),
   current_timezone: "America/New_York",
-  asound_location: "/usr/bin/omxplayer",
+  asound_location: "/usr/bin/play",
   asound_options: []
 
 # Do not print debug messages in production
