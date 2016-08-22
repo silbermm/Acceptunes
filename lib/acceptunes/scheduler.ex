@@ -28,12 +28,12 @@ defmodule Acceptunes.Scheduler do
     {:noreply, state}
   end
 
-  defp run do
+  def run do
     if RallyServer.is_loaded do
       # Check for new items that have been accepted and play sound
       new? = RallyServer.check_for_new
       if (new? > 0) do
-        send_congrats
+        send_congrats(RallyServer.current_count)
       end
     end
   end
@@ -42,20 +42,34 @@ defmodule Acceptunes.Scheduler do
     Process.send_after(self(), :run, 5 * 1000) # In 30 minute
   end
 
-  def send_congrats do
+  def send_congrats(number_accepted \\ 1) do
     Acceptunes.Asound.play_sound("yeah.mp3")
+    cats()
+
+  end
+
+  def cats do
     cat = Cats.get_cat
-    Slack.post("""
-      {
-      "text": "<!channel> Congratulations on getting another item through Rally!\n Enjoy this cat picture as a reward!",
-      "attachments": [
-        {
-          "fallback": "Really awesome picture of a cat.",
-          "color": "good",
-          "image_url": "#{cat}"
-        }
-      ]
-      }
-    """)
+    attachment = %SlackAttachment{ fallback: "Really awesome picture of a cat", image_url: cat }
+    message = %SlackMessage{ text: "<!channel> Congratulations on getting another item through Rally!\n Enjoy this cat picture as a reward!",
+                             attachments: [ attachment ]
+                           }
+    Slack.post(message)
+  end
+
+  def chuck_norris do
+    quote = ChuckNorris.get_joke
+    attachment = %SlackAttachment{ 
+      fallback: "CHUCK NORRIS!",
+      image_url: nil,
+      text: quote,
+      author_icon: "http://theheureka.com/wp-content/uploads/2012/05/got-99-problems-chuck-norris-has-none.jpeg",
+      author_name: "Chuck Norris"
+    }
+    message = %SlackMessage{
+      text: "<!channel> Congratulations on getting another item through Rally! Enjoy a new Chuck Norris joke!",
+      attachments: [ attachment ]
+    }
+    Slack.post(message)
   end
 end

@@ -3,7 +3,7 @@ defmodule Acceptunes.Mixfile do
 
   def project do
     [app: :acceptunes,
-     version: "0.0.4",
+     version: "0.0.5",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
@@ -22,7 +22,7 @@ defmodule Acceptunes.Mixfile do
     [mod: {Acceptunes, []},
      applications: [:phoenix, :phoenix_html,
                     :cowboy, :logger, :gettext,
-                    :httpoison, :edeliver]]
+                    :httpoison, :edeliver, :quantum]]
   end
 
   def package do
@@ -54,7 +54,8 @@ defmodule Acceptunes.Mixfile do
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.9.0"},
      {:exrm, "~> 1.0.8"},
-     {:edeliver, "~> 1.3.0"}
+     {:edeliver, "~> 1.3.0"},
+     {:quantum, ">= 1.7.1"}
    ]
   end
 

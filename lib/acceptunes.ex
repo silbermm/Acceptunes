@@ -10,8 +10,8 @@ defmodule Acceptunes do
       # Start the endpoint when the application starts
       supervisor(Acceptunes.Endpoint, []),
       # Here you could define other workers and supervisors as children
-      worker(RallyServer, [[name: RallyServer]])
-      #worker(Acceptunes.Scheduler, [[name: Acceptunes.Scheduler]])
+      worker(RallyServer, [[name: RallyServer]]),
+      worker(Acceptunes.Scheduler, [[name: Acceptunes.Scheduler]])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
