@@ -9,11 +9,11 @@ defmodule RallyMock do
           "GeneratedQuery" => %{
             "fields" => %{"ObjectID" => 1, "Project" => 1},
             "find" => %{"$and" => [%{
-                  "_ValidFrom" => %{ "$lte" => "2016-07-29T03:11:49.901Z"},
+                  "_ValidFrom" => %{"$lte" => "2016-07-29T03:11:49.901Z"},
                   "_ValidTo" => %{"$gt" => "2016-07-29T03:11:49.901Z"}
                 }],
               "AcceptedDate" => %{"$gte" => "#{accepted_date}"},
-              "ScheduleState" => %{"$in" => [22244455060]},
+              "ScheduleState" => %{"$in" => [2_224_455_060]},
               "_ProjectHierarchy" => projectId,
               "_ValidFrom" => %{"$lte" => "2016-07-29T03:11:49.901Z"}},
             "limit" => 100, "skip" => 0
@@ -21,8 +21,8 @@ defmodule RallyMock do
           "HasMore" => false,
           "PageSize" => 100,
           "Results" => [
-            %{"ObjectID" => 56064976699 },
-            %{"ObjectID" => 59699635251}
+            %{"ObjectID" => 56_064_976_699},
+            %{"ObjectID" => 59_699_635_251}
           ],
           "StartIndex" => 0,
           "TotalResultCount" => 2,

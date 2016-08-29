@@ -2,6 +2,8 @@ defmodule Acceptunes.Scheduler do
   use GenServer
   require Logger
 
+  alias Acceptunes.Asound
+
   def start_link(opts \\ []) do
     IO.puts "starting scheduler"
     GenServer.start_link(__MODULE__, :ok, opts)
@@ -29,30 +31,29 @@ defmodule Acceptunes.Scheduler do
   end
 
   def run do
-    if RallyServer.is_loaded do
+    if RallyServer.loaded? do
       # Check for new items that have been accepted and play sound
       new? = RallyServer.check_for_new
-      if (new? > 0) do
+      if new? > 0 do
         send_congrats(RallyServer.current_count)
       end
     end
   end
 
   defp schedule do
-    Process.send_after(self(), :run, 5 * 1000) # In 30 minute
+    Process.send_after(self(), :run, 5 * 1000) #Every 5 seconds
   end
 
-  def send_congrats(number_accepted \\ 1) do
-    Acceptunes.Asound.play_sound("yeah.mp3")
+  def send_congrats(_number_accepted \\ 1) do
+    Asound.play_sound("yeah.mp3")
     cats()
-
   end
 
   def cats do
     cat = Cats.get_cat
-    attachment = %SlackAttachment{ fallback: "Really awesome picture of a cat", image_url: cat }
-    message = %SlackMessage{ text: "<!channel> Congratulations on getting another item through Rally!\n Enjoy this cat picture as a reward!",
-                             attachments: [ attachment ]
+    attachment = %SlackAttachment{fallback: "Really awesome picture of a cat", image_url: cat}
+    message = %SlackMessage{text: "<!channel> Congratulations on getting another item through Rally!\n Enjoy this cat picture as a reward!",
+                             attachments: [attachment]
                            }
     Slack.post(message)
   end
@@ -68,7 +69,7 @@ defmodule Acceptunes.Scheduler do
     }
     message = %SlackMessage{
       text: "<!channel> Congratulations on getting another item through Rally! Enjoy a new Chuck Norris joke!",
-      attachments: [ attachment ]
+      attachments: [attachment]
     }
     Slack.post(message)
   end

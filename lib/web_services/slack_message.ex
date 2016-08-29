@@ -3,7 +3,7 @@ defmodule SlackMessage do
   @derive [Poison.Encoder]
   defstruct text: "<!channel>·Congratulations·on·getting·another·item·through·Rally!",
             channel: nil,
-            attachments: [ ]
+            attachments: []
 end
 
 defmodule SlackAttachment do

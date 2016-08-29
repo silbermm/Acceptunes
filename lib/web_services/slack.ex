@@ -8,10 +8,9 @@ defmodule Slack do
       %{"Content-type" => "application/json"})
 
     case response do
-      {:ok, res } ->
+      {:ok, res} ->
         res.status_code == 200
-      {:error, err } ->
-        IO.inspect err
+      {:error, _err} ->
         false
     end
   end

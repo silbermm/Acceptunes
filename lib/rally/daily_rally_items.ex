@@ -5,7 +5,7 @@ defmodule Acceptunes.DailyRallyItems do
   @timezone Application.get_env(:acceptunes, :current_timezone) 
 
   def today do
-    { date, _time } = :os.timestamp |> :calendar.now_to_local_time
+    {date, _time} = :os.timestamp |> :calendar.now_to_local_time
     month = format_month_day(elem(date,1))
     day = format_month_day(elem(date,2))
     "#{elem(date,0)}-#{month}-#{day}T04:00:00Z"
@@ -16,7 +16,7 @@ defmodule Acceptunes.DailyRallyItems do
 
   def format(response) do
     case response do
-      {:ok, %HTTPoison.Response{body: %{ "Results": nil }}} ->
+      {:ok, %HTTPoison.Response{body: %{"Results": nil}}} ->
         %Acceptunes.RallyResult{}
       {:ok, response} ->
         object_ids = Enum.map(response.body["Results"], fn(obj) ->
@@ -34,15 +34,16 @@ defmodule Acceptunes.DailyRallyItems do
   end
 
   def get(projectId) do
-    @rally_api.query(:get, projectId, today) |> format
+    :get
+      |> @rally_api.query(projectId, today)
+      |> format
   end
 
   defp format_month_day(num) do
-    cond do
-      num < 10 -> "0#{num}"
-      true -> "#{num}"
+    if num < 10 do
+      "0#{num}"
+    else
+      "#{num}"
     end
-
   end
-
 end

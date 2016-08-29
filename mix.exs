@@ -55,7 +55,9 @@ defmodule Acceptunes.Mixfile do
      {:httpoison, "~> 0.9.0"},
      {:exrm, "~> 1.0.8"},
      {:edeliver, "~> 1.3.0"},
-     {:quantum, ">= 1.7.1"}
+     {:quantum, ">= 1.7.1"},
+     {:credo, "~> 0.4", only: [:dev, :test]},
+     {:dialyxir, "~> 0.3.5", only: [:dev]}
    ]
   end
 

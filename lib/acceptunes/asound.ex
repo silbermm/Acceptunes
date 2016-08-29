@@ -5,7 +5,7 @@ defmodule Acceptunes.Asound do
 
   def play_sound(file) do
     file = "#{@sound_dir}/#{file}"
-    options = @asound_options ++ [ file ]
+    options = @asound_options ++ [file]
     case System.cmd(@asound, options) do
       {_, 0} -> true
       {_, _} -> false
