@@ -28,7 +28,7 @@ defmodule Acceptunes.DailyRallyItems do
           #object_ids: object_ids
         }
       {:error, err} -> 
-        Logger.error(err)
+        Logger.error("an error occured querying Rally #{err.reason})
         %Acceptunes.RallyResult{}
     end
   end
