@@ -3,7 +3,7 @@ defmodule Acceptunes.Mixfile do
 
   def project do
     [app: :acceptunes,
-     version: "0.0.6",
+     version: "0.0.7",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
