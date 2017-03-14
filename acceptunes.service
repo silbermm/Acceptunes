@@ -1,0 +1,17 @@
+[Unit]
+Description=acceptunes
+After=network.target
+
+[Service]
+Type=forking
+TimeoutSec=120
+User=pi
+Group=pi
+
+Environment=HOME=/home/pi
+
+ExecStart= /opt/acceptunes/bin/acceptunes start
+ExecStop= /opt/acceptunes/bin/acceptunes stop
+
+[Install]
+WantedBy=multi-user.target
