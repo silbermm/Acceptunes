@@ -6,11 +6,9 @@ defmodule Acceptunes.Mixfile do
      version: "0.0.7",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     description: "Play a tune when a Raly item is accepted",
-     aliases: aliases,
+     description: "Play a tune when a Rally item is accepted",
      deps: deps,
      package: package]
   end
@@ -20,9 +18,7 @@ defmodule Acceptunes.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Acceptunes, []},
-     applications: [:phoenix, :phoenix_html,
-                    :cowboy, :logger, :gettext,
-                    :httpoison, :edeliver, :quantum]]
+     applications: [:logger, :httpoison, :edeliver, :quantum]]
   end
 
   def package do
@@ -47,28 +43,13 @@ defmodule Acceptunes.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1.3"},
-     {:phoenix_html, "~> 2.3"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.9"},
-     {:cowboy, "~> 1.0"},
-     {:httpoison, "~> 0.9.0"},
+    [{:httpoison, "~> 0.9.0"},
      {:exrm, "~> 1.0.8"},
+     {:poison, "~> 3.0"},
      {:edeliver, "~> 1.3.0"},
      {:quantum, ">= 1.7.1"},
-     {:credo, "~> 0.4", only: [:dev, :test]},
-     {:dialyxir, "~> 0.3.5", only: [:dev]}
+     {:credo, "~> 0.7.0", only: [:dev, :test]},
+     {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
    ]
-  end
-
-  # Aliases are shortcut or tasks specific to the current project.
-  # For example, to create, migrate and run the seeds file at once:
-  #
-  #     $ mix ecto.setup
-  #
-  # See the documentation for `Mix` for more info on aliases.
-  defp aliases do
-    ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-     "ecto.reset": ["ecto.drop", "ecto.setup"]]
   end
 end
