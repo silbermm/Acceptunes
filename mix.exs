@@ -44,7 +44,7 @@ defmodule Acceptunes.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [{:httpoison, "~> 0.9.0"},
-     {:exrm, "~> 1.0.8"},
+     {:distillery, "~> 1.0"},
      {:poison, "~> 3.0"},
      {:edeliver, "~> 1.3.0"},
      {:quantum, ">= 1.7.1"},
