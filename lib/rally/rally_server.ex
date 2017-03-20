@@ -32,7 +32,6 @@ defmodule RallyServer do
     # get intial daily accepted items
     Logger.info "Starting RallyServer for project #{@rally_project_id}"
     rally_result = DailyRallyItems.get(@rally_project_id)
-    RoomChannel.update_rally_count(rally_result.total_results)
     {:ok, %{:current_count => rally_result.total_results, :loaded => true}}
   end
 
@@ -47,7 +46,6 @@ defmodule RallyServer do
   def handle_call({:check}, _from, %{:loaded => true} = state) do
     rally_result = DailyRallyItems.get(@rally_project_id)
     if rally_result.status_code == 200 do
-      RoomChannel.update_rally_count(rally_result.total_results)
       {
         :reply,
         rally_result.total_results - state.current_count,
@@ -64,7 +62,6 @@ defmodule RallyServer do
 
   def handle_call({:check}, _from, state) do
     rally_result = DailyRallyItems.get(@rally_project_id)
-    RoomChannel.update_rally_count(rally_result.total_results)
     {
       :reply,
       0,

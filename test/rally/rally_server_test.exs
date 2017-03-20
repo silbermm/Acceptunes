@@ -2,7 +2,7 @@ defmodule RallyServerTest do
   use ExUnit.Case
 
   test "sets up initial rally server" do
-    if (RallyServer.is_loaded) do
+    if (RallyServer.loaded?) do
       assert RallyServer.current_count == 2
     else
       assert RallyServer.current_count == 0
@@ -11,7 +11,7 @@ defmodule RallyServerTest do
 
   test "calls rally api endpoint on first check and sets loaded" do
     new = RallyServer.check_for_new
-    if (RallyServer.is_loaded) do
+    if (RallyServer.loaded?) do
       assert RallyServer.current_count == 2
       assert new == 0
     else
