@@ -1,7 +1,7 @@
 defmodule RallyServer do
   use GenServer
   require Logger
-  
+
   alias Acceptunes.RoomChannel
   alias Acceptunes.DailyRallyItems
 
@@ -30,7 +30,6 @@ defmodule RallyServer do
   ## Server Callbacks
   def init(:ok) do
     # get intial daily accepted items
-    Logger.info "Starting RallyServer for project #{@rally_project_id}"
     rally_result = DailyRallyItems.get(@rally_project_id)
     {:ok, %{:current_count => rally_result.total_results, :loaded => true}}
   end
@@ -45,28 +44,17 @@ defmodule RallyServer do
 
   def handle_call({:check}, _from, %{:loaded => true} = state) do
     rally_result = DailyRallyItems.get(@rally_project_id)
-    if rally_result.status_code == 200 do
-      {
-        :reply,
+    case rally_result.status_code do
+      200 -> { :reply,
         rally_result.total_results - state.current_count,
-        %{state | :current_count => rally_result.total_results}
-      }
-    else
-      {
-        :reply,
-        0,
-        state
-      }
+        %{state | :current_count => rally_result.total_results} }
+      _ -> { :reply, 0, state }
     end
   end
 
   def handle_call({:check}, _from, state) do
     rally_result = DailyRallyItems.get(@rally_project_id)
-    {
-      :reply,
-      0,
-      %{:current_count => rally_result.total_results, :loaded => true}
-    }
+    { :reply, 0, %{:current_count => rally_result.total_results, :loaded => true} }
   end
 
   def handle_cast({:clear_count}, _state) do

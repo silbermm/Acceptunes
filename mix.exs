@@ -18,7 +18,7 @@ defmodule Acceptunes.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Acceptunes, []},
-     applications: [:logger, :httpoison, :edeliver, :quantum]]
+     applications: [:logger, :httpoison, :edeliver]]
   end
 
   def package do
@@ -47,7 +47,6 @@ defmodule Acceptunes.Mixfile do
      {:distillery, "~> 1.0"},
      {:poison, "~> 3.0"},
      {:edeliver, "~> 1.3.0"},
-     {:quantum, ">= 1.7.1"},
      {:credo, "~> 0.7.0", only: [:dev, :test]},
      {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
    ]

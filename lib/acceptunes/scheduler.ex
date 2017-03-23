@@ -33,10 +33,8 @@ defmodule Acceptunes.Scheduler do
   def run do
     if RallyServer.loaded? do
       # Check for new items that have been accepted and play sound
-      new? = RallyServer.check_for_new
-      if new? > 0 do
-        send_congrats(RallyServer.current_count)
-      end
+      new_accepted = RallyServer.check_for_new
+      send_congrats(new_accepted)
     end
   end
 
@@ -44,7 +42,8 @@ defmodule Acceptunes.Scheduler do
     Process.send_after(self(), :run, 5 * 1000) #Every 5 seconds
   end
 
-  def send_congrats(_number_accepted \\ 1) do
+  def send_congrats(0), do: nil
+  def send_congrats(_number_accepted) do
     Asound.play_sound("yeah.mp3")
     cats()
   end
