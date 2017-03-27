@@ -1,4 +1,7 @@
 defmodule RallyServer do
+  @moduledoc """
+  Handles calls to the Rally Service
+  """
   use GenServer
   require Logger
 
@@ -45,16 +48,16 @@ defmodule RallyServer do
   def handle_call({:check}, _from, %{:loaded => true} = state) do
     rally_result = DailyRallyItems.get(@rally_project_id)
     case rally_result.status_code do
-      200 -> { :reply,
+      200 -> {:reply,
         rally_result.total_results - state.current_count,
-        %{state | :current_count => rally_result.total_results} }
-      _ -> { :reply, 0, state }
+        %{state | :current_count => rally_result.total_results}}
+      _ -> {:reply, 0, state}
     end
   end
 
   def handle_call({:check}, _from, state) do
     rally_result = DailyRallyItems.get(@rally_project_id)
-    { :reply, 0, %{:current_count => rally_result.total_results, :loaded => true} }
+    {:reply, 0, %{:current_count => rally_result.total_results, :loaded => true}}
   end
 
   def handle_cast({:clear_count}, _state) do

@@ -1,5 +1,7 @@
 defmodule Rally do
-
+  @moduledoc """
+  Provides the query method for Rally.
+  """
   use HTTPoison.Base
 
   @rally_api_key Application.get_env(:acceptunes, :rally_api_key)

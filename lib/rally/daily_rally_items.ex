@@ -1,4 +1,7 @@
 defmodule Acceptunes.DailyRallyItems do
+  @moduledoc """
+  Handles getting daily rally items by formatting todays date.
+  """
   require Logger
 
   @rally_api Application.get_env(:acceptunes, :rally_api)

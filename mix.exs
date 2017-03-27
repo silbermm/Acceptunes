@@ -9,8 +9,8 @@ defmodule Acceptunes.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      description: "Play a tune when a Rally item is accepted",
-     deps: deps,
-     package: package]
+     deps: deps(),
+     package: package()]
   end
 
   # Configuration for the OTP application.
@@ -43,11 +43,11 @@ defmodule Acceptunes.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:httpoison, "~> 0.9.0"},
+    [{:httpoison, "~> 0.11.1"},
      {:distillery, "~> 1.0"},
-     {:poison, "~> 3.0"},
-     {:edeliver, "~> 1.3.0"},
-     {:credo, "~> 0.7.0", only: [:dev, :test]},
+     {:poison, "~> 3.1.0"},
+     {:edeliver, "~> 1.4.2"},
+     {:credo, "~> 0.7.1", only: [:dev, :test]},
      {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
    ]
   end

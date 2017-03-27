@@ -1,4 +1,7 @@
 defmodule Acceptunes.Scheduler do
+  @moduledoc """
+  Schedules calls to rally every 5 seconds
+  """
   use GenServer
   require Logger
 
