@@ -4,6 +4,7 @@ defmodule Acceptunes.Scheduler do
   """
   use GenServer
   require Logger
+  require IEx
 
   alias Acceptunes.Asound
 

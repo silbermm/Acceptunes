@@ -3,8 +3,7 @@ defmodule Acceptunes.DailyRallyItems do
   Handles getting daily rally items by formatting todays date.
   """
   require Logger
-
-  @rally_api Application.get_env(:acceptunes, :rally_api)
+  require IEx
 
   def today do
     {date, _time} = :os.timestamp |> :calendar.now_to_local_time
@@ -34,7 +33,7 @@ defmodule Acceptunes.DailyRallyItems do
 
   def get(projectId) do
     :get
-    |> @rally_api.query(projectId, today)
+    |> Rally.query(projectId, today)
     |> format
   end
 

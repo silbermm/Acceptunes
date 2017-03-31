@@ -3,7 +3,7 @@ defmodule Acceptunes.Mixfile do
 
   def project do
     [app: :acceptunes,
-     version: "0.0.7",
+     version: "0.0.9",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      build_embedded: Mix.env == :prod,
@@ -18,7 +18,7 @@ defmodule Acceptunes.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Acceptunes, []},
-     applications: [:logger, :httpoison, :edeliver]]
+     applications: [:logger, :httpoison, :edeliver, :poison, :timber]]
   end
 
   def package do
@@ -48,7 +48,8 @@ defmodule Acceptunes.Mixfile do
      {:poison, "~> 3.1.0"},
      {:edeliver, "~> 1.4.2"},
      {:credo, "~> 0.7.1", only: [:dev, :test]},
-     {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
+     {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+     {:timber, "~> 1.0"}
    ]
   end
 end

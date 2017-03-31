@@ -6,7 +6,6 @@ config :acceptunes,
   rally_api_key: System.get_env("RALLY_API_KEY"),
   rally_workspace_id: System.get_env("RALLY_WORKSPACE_ID"),
   current_timezone: "America/New_York",
-  asound_location: "/usr/bin/play",
   asound_options: []
 
 # Do not include metadata nor timestamps in development logs

@@ -4,7 +4,7 @@ defmodule RallyServer do
   """
   use GenServer
   require Logger
-
+  require IEx
   alias Acceptunes.RoomChannel
   alias Acceptunes.DailyRallyItems
 
@@ -33,7 +33,8 @@ defmodule RallyServer do
   ## Server Callbacks
   def init(:ok) do
     # get intial daily accepted items
-    rally_result = DailyRallyItems.get(@rally_project_id)
+    projectId = @rally_project_id
+    rally_result = DailyRallyItems.get(projectId)
     {:ok, %{:current_count => rally_result.total_results, :loaded => true}}
   end
 
