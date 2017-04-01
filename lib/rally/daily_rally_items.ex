@@ -13,14 +13,23 @@ defmodule Acceptunes.DailyRallyItems do
     |> format_date
   end
 
-  def format(response) do
+  def format(response, today) do
     case response do
       {:ok, %HTTPoison.Response{body: %{"Results": nil}}} ->
+        Logger.error("Got an empty result from Rally")
         %Acceptunes.RallyResult{}
+      {:ok, %HTTPoison.Response{body: %{"Errors" => []} = body}} ->
+        Logger.info("No new items")
+        %Acceptunes.RallyResult{}
+      {:ok, %HTTPoison.Response{body: %{"Errors" => err} = body}} ->
+        Logger.error("Unable to get accepted items #{err}")
+        %Acceptunes.RallyResult{}
+        Logger.info("New item(s) as of #{today}")
       {:ok, response} ->
-        object_ids = Enum.map(response.body["Results"], fn(obj) ->
-          obj["ObjectID"]
-        end)
+        Logger.info("New items as of #{today}")
+        #object_ids = Enum.map(response.body["Results"], fn(obj) ->
+          #obj["ObjectID"]
+        #end)
         %Acceptunes.RallyResult{
           status_code: response.status_code,
           total_results: response.body["TotalResultCount"],
@@ -32,9 +41,7 @@ defmodule Acceptunes.DailyRallyItems do
   end
 
   def get(projectId) do
-    :get
-    |> Rally.query(projectId, today)
-    |> format
+    :get |> Rally.query(projectId, today) |> format(today)
   end
 
   defp format_month({year, month, day}) when month < 10 do
@@ -50,5 +57,4 @@ defmodule Acceptunes.DailyRallyItems do
   defp format_date({year, month, day}) do
     "#{year}-#{month}-#{day}T04:00:00Z"
   end
-
 end

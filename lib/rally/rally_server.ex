@@ -27,15 +27,19 @@ defmodule RallyServer do
   end
 
   def check_for_new do
-    GenServer.call(__MODULE__, {:check})
+    GenServer.call(__MODULE__, {:check}, 10000)
   end
 
   ## Server Callbacks
   def init(:ok) do
     # get intial daily accepted items
-    projectId = @rally_project_id
-    rally_result = DailyRallyItems.get(projectId)
+    rally_result = DailyRallyItems.get(@rally_project_id)
     {:ok, %{:current_count => rally_result.total_results, :loaded => true}}
+  end
+
+  def handle_info({:DOWN, ref, :process, pid, reason}, _from, state) do
+    Logger.error("Catching down message from #{__MODULE__}: #{reason}")
+    {:noreply, state}
   end
 
   def handle_call({:is_loaded}, _from, state) do
